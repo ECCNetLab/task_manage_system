@@ -9,7 +9,6 @@ class Task extends Model
     protected $fillable = [
         'title',
         'body',
-        'tag',
         'file',
     ];
     public function tags() {
