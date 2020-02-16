@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\{Tag,Task};
+
 
 class TasksController extends Controller
 {
@@ -23,7 +26,7 @@ class TasksController extends Controller
      */
     public function create()
     {
-        //
+        return view('tasks.create');
     }
 
     /**
@@ -34,7 +37,24 @@ class TasksController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $task = new Task;
+        $task->fill($request->all());
+        $task->create_user = Auth::user()->id;
+        $task->save();
+
+        $tags = explode(',', $request->tags);
+        $tagarr = [];
+        foreach ($tags as $tag) {
+            $record = Tag::firstOrCreate(['name' => $tag]);
+            array_push($tagarr, $record);
+        }
+        $tags_id = [];
+        foreach ($tagarr as $tag) {
+            array_push($tags_id, $tag['id']);
+        };
+        $task->tags()->attach($tags_id);
+
+        return redirect()->route('tasks.index');
     }
 
     /**
