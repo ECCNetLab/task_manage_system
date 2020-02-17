@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\{Tag,Task};
+use App\{Tag,Task,User};
 
 
 class TasksController extends Controller
@@ -65,8 +65,9 @@ class TasksController extends Controller
      */
     public function show($id)
     {
-        $task = Task::with(['tags:name','user:name'])->find($id);
-        return view('tasks.show',compact('task'));
+        $task = Task::with(['tags:name'])->find($id);
+        $user = User::find($task->create_user);
+        return view('tasks.show',compact('task','user'));
     }
 
     /**

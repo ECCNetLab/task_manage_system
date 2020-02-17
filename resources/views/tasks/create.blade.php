@@ -21,7 +21,7 @@
 
 									<div class="form-group">
 											<label for="body">本文</label>
-											<textarea id="body" name="body" class="form-control" rows="4"></textarea>
+											<textarea id="body" name="body" class="form-control" rows="10"></textarea>
 									</div>
 
 									<div class="form-group">
@@ -51,7 +51,7 @@
 					</form>
 			</div>
 	</div>
-	
+
 <script>
 	$(function(){
 	$('#menu-comment').click(function(){
