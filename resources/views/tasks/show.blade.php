@@ -8,10 +8,12 @@
 			<h3 class="card-title">{{ $task->title }}</h3>
 		</div>
 		<div class="card-body">
-			<h5>Custom Color Variants</h5>
+			<h5>{!! nl2br(e($task->body)) !!}</h5>
+			Tag @foreach($task->tags as $tag)
+			<a class="btn btn-primary btn-sm bg-white">{{ $tag->name }}</a>
+			@endforeach
 		</div>
 
-		
 		<!-- fotter -->
 		<div class="card-footer">
 			<div class="float-right d-none d-sm-inline-block">
