@@ -10,6 +10,7 @@ class Task extends Model
         'title',
         'body',
         'file',
+        'status',
     ];
 
     public function user()
