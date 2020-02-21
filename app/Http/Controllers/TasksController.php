@@ -16,7 +16,8 @@ class TasksController extends Controller
      */
     public function index()
     {
-        return view('tasks.index');
+        $tasks = Task::with(['tags'])->paginate(15);
+        return view('tasks.index', compact('tasks'));
     }
 
     /**
@@ -78,7 +79,13 @@ class TasksController extends Controller
      */
     public function edit($id)
     {
-        //
+        $task = Task::with(['tags'])->find($id);
+        $tagarr = [];
+        foreach($task->tags as $tag) {
+            array_push($tagarr,$tag->name);
+        }
+        $tags = implode(',',$tagarr);
+        return view('tasks.edit',compact('task','tags'));
     }
 
     /**
