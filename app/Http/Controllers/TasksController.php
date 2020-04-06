@@ -14,6 +14,11 @@ class TasksController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index','show']);
+    }
+    
     public function index()
     {
         $tasks = Task::with(['tags'])->paginate(15);
@@ -53,8 +58,7 @@ class TasksController extends Controller
         foreach ($tagarr as $tag) {
             array_push($tags_id, $tag['id']);
         };
-        $task->tags()->attach($tags_id);
-
+        $task->tags()->sync($tags_id);
         return redirect()->route('tasks.index');
     }
 
