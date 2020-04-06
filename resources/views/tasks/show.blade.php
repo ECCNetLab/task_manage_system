@@ -4,17 +4,26 @@
 @section('content')
 <div class="container mt-4">
 	<div class="card card-default">
-		<div class="card-header">
-			<h3 class="card-title">{{ $task->title }}</h3>
+		<div class="card-footer">
+			<div class="float-left">
+				<h3 style="display:inline">{{ $task->title }}</h3>
+			</div>
+			<div class="float-right">
+				<a class="btn btn-info" href="#">
+					<i class="fas fa-pencil-alt"></i>Edit
+				</a>
+				<a class="btn btn-danger" href="#">
+					<i class="fas fa-trash"></i>Delete
+				</a>
+			</div>
 		</div>
 		<div class="card-body">
-			<h5>{!! nl2br(e($task->body)) !!}</h5>
+			<h5>{!! nl2br($task->body) !!}</h5>
 			Tag @foreach($task->tags as $tag)
 			<a class="btn btn-primary btn-sm bg-white">{{ $tag->name }}</a>
 			@endforeach
 		</div>
-
-		<!-- fotter -->
+		
 		<div class="card-footer">
 			<div class="float-right d-none d-sm-inline-block">
 			Create User {{ $user->name }}
