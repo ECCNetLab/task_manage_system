@@ -71,6 +71,9 @@ class TasksController extends Controller
     public function show($id)
     {
         $task = Task::with(['tags:name'])->find($id);
+        if($task->create_user != Auth::id() && $task->status !== true) {
+            abort(403);
+        }
         $user = User::find($task->create_user);
         return view('tasks.show',compact('task','user'));
     }
