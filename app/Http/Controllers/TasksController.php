@@ -18,7 +18,7 @@ class TasksController extends Controller
     {
         $this->middleware('auth')->except(['index','show']);
     }
-    
+
     public function index()
     {
         $tasks = Task::with(['tags'])->paginate(15);
@@ -59,7 +59,7 @@ class TasksController extends Controller
             array_push($tags_id, $tag['id']);
         };
         $task->tags()->sync($tags_id);
-        return redirect()->route('tasks.index');
+        return redirect()->route('tasks.show',$task->id);
     }
 
     /**
@@ -101,7 +101,21 @@ class TasksController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $task = Task::find($id);
+        $task->fill($request->all())->save();
+
+        $tags = explode(',', $request->tags);
+        $tagarr = [];
+        foreach ($tags as $tag) {
+            $record = Tag::firstOrCreate(['name' => $tag]);
+            array_push($tagarr, $record);
+        }
+        $tags_id = [];
+        foreach ($tagarr as $tag) {
+            array_push($tags_id, $tag['id']);
+        };
+        $task->tags()->sync($tags_id);
+        return redirect()->route('tasks.show',$task->id);
     }
 
     /**
