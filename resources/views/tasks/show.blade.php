@@ -14,9 +14,11 @@
 						<a class="btn btn-info" href="{{ route('tasks.edit',$task->id) }}">
 							<i class="fas fa-pencil-alt"></i>Edit
 						</a>
-						<a class="btn btn-danger" href="#">
-							<i class="fas fa-trash"></i>Delete
-						</a>
+						<form style="display: inline" action="{{ route('tasks.destroy',$task->id) }}" method="post">
+							@csrf
+							@method('delete')
+							<input type="submit" class="fas fa-trash btn btn-danger btn-dell" value="Delete">
+						</form>
 					@endif
 				@endauth
 			</div>
@@ -35,3 +37,14 @@
 	</div>
 </div>
 @endsection
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+$(function(){
+	$(".btn-dell").click(function(){
+		if(confirm("本当に削除しますか？")){
+		} else {
+			return false;
+		}
+	});
+});
+</script>
