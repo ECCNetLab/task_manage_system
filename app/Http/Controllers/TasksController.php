@@ -105,6 +105,9 @@ class TasksController extends Controller
     public function update(Request $request, $id)
     {
         $task = Task::find($id);
+        if($task->create_user != Auth::id()) {
+            abort(403);
+        }
         $task->fill($request->all())->save();
 
         $tags = explode(',', $request->tags);
