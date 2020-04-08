@@ -4,8 +4,13 @@
 @section('content')
 <div class="container mt-4">
 	<div class="mb-4">
+	@isset($tagname)
+		<div class="h3">{{ $tagname }} で検索中
+	@endisset
 		@auth
-			<div class="h3">Hello {{ Auth::user()->name }} !!
+			@empty($tagname)
+				<div class="h3">Hello {{ Auth::user()->name }} !!
+			@endempty
 				<a class="btn btn-primary float-right" href="{{ route('tasks.create') }}">新規問題作成</a>
 			</div>
 		@endauth
@@ -21,8 +26,10 @@
 						<div class="card-body">
 							<h5>{!! nl2br(e($task->body)) !!}</h5>
 								Tag @foreach($task->tags as $tag)
-									<a class="btn btn-primary btn-sm bg-white">{{ $tag->name }}</a>
-								@endforeach		
+									<form action="{{ route('tagSearch',$tag->name) }}" style="display: inline" method="get">
+										<input type="submit" class="btn btn-primary btn-sm" value="{{ $tag->name }}">
+									</form>
+								@endforeach
 						</div>
 						<!-- <div class="card-footer">
 							<div class="float-right d-none d-sm-inline-block">
