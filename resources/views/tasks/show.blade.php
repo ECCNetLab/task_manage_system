@@ -26,7 +26,9 @@
 		<div class="card-body">
 			<h5>{!! nl2br(e($task->body)) !!}</h5>
 			Tag @foreach($task->tags as $tag)
-				<a class="btn btn-primary btn-sm bg-white">{{ $tag->name }}</a>
+				<form action="{{ route('tagSearch',$tag->name) }}" style="display: inline" method="get">
+					<input type="submit" class="btn btn-primary btn-sm" value="{{ $tag->name }}">
+				</form>
 			@endforeach
 		</div>
 		<div class="card-footer">
@@ -37,8 +39,9 @@
 	</div>
 </div>
 @endsection
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="{{ asset('js/app.js') }}" defer></script>
 <script>
+window.onload = function(){ 
 $(function(){
 	$(".btn-dell").click(function(){
 		if(confirm("本当に削除しますか？")){
@@ -47,4 +50,5 @@ $(function(){
 		}
 	});
 });
+}
 </script>
