@@ -5,7 +5,6 @@
 <div class="container mt-4">
   <div class="border p-4">
     <h1 class="h5 mb-4">編集</h1>
-
     <form method="POST" action="{{ route('tasks.update',$task->id) }}">
       @csrf
       @method('put')
@@ -47,13 +46,14 @@
             </ul>
           </div>
         </div>
+      </fieldset>
+    </form>
   </div>
-  </fieldset>
-  </form>
 </div>
-</div>
-
+@endsection
+<script src="{{ asset('js/app.js') }}" defer></script>
 <script>
+window.onload = function(){   
   $(function () {
     $('#menu-comment').click(function () {
       $('#submit-button').attr('value', '更新');
@@ -64,5 +64,5 @@
       $('#status').val('0');
     });
   });
+}
 </script>
-@endsection

@@ -46,16 +46,17 @@
             </ul>
           </div>
         </div>
+      </fieldset>
+    </form>
   </div>
-  </fieldset>
-  </form>
 </div>
-</div>
-
+@endsection
+<script src="{{ asset('js/app.js') }}" defer></script>
 <script>
+window.onload = function(){   
   $(function () {
     $('#menu-comment').click(function () {
-      $('#submit-button').attr('value', '投稿');
+      $('#submit-button').attr('value', '更新');
       $('#status').val('1');
     });
     $('#menu-x-and-comment').click(function () {
@@ -63,5 +64,5 @@
       $('#status').val('0');
     });
   });
+}
 </script>
-@endsection
