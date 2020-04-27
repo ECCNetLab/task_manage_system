@@ -18,8 +18,8 @@ class CreateTasksTable extends Migration
             $table->string('title');
             $table->text('body');
             $table->string('file')->nullable();
-            $table->boolean('status')->nullable()->default(false); // 公開状態か下書き状態か
-            $table->integer('create_user'); // 作成ユーザ
+            $table->boolean('status'); // 公開状態か下書き状態か
+            $table->unsignedInteger('create_user'); // 作成ユーザ
             $table->timestamps();
         });
     }

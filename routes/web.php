@@ -13,10 +13,11 @@
 
 Route::get('/', function () {
     //return view('welcome');
-    return view('home');
+    return redirect()->route('tasks.index');
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('tasks','TasksController');
+Route::get('tag/{name}','TagSearchsController@index')->name('tagSearch');

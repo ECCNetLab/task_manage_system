@@ -4,24 +4,24 @@
 @section('content')
 <div class="container mt-4">
   <div class="border p-4">
-    <h1 class="h5 mb-4">新規作成</h1>
-
-    <form method="POST" action="{{ route('tasks.store') }}">
+    <h1 class="h5 mb-4">編集</h1>
+    <form method="POST" action="{{ route('tasks.update',$task->id) }}">
       @csrf
+      @method('put')
       <fieldset class="mb-4">
         <div class="form-group">
           <label for="title">タイトル</label>
-          <input id="title" name="title" class="form-control" type="text">
+          <input id="title" name="title" class="form-control" type="text" value="{{ $task->title }}">
         </div>
 
         <div class="form-group">
           <label for="tags">タグ(カンマ区切り)</label>
-          <input id="tags" name="tags" class="form-control" type="text">
+          <input id="tags" name="tags" class="form-control" type="text" value="{{ $tags }}">
         </div>
 
         <div class="form-group">
           <label for="body">本文</label>
-          <textarea id="body" name="body" class="form-control" rows="10"></textarea>
+          <textarea id="body" name="body" class="form-control" rows="10">{{ $task->body }}</textarea>
         </div>
 
         <div class="form-group">
@@ -33,15 +33,15 @@
         </div>
 
         <div class="mt-5">
-          <a class="btn btn-secondary" href="{{ route('home') }}">キャンセル</a>
+          <a class="btn btn-secondary" href="{{ route('tasks.show',$task->id) }}">キャンセル</a>
           <input type="hidden" id="status" name="status" value="1">
           <div class="btn-group dropup">
-            <input type="submit" class="btn btn-success" value="投稿" id="submit-button">
+            <input type="submit" class="btn btn-success" value="更新" id="submit-button">
             <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
               <span class="caret"></span>
             </button>
             <ul class="dropdown-menu dropdown-menu-right">
-              <li><a id="menu-comment">投稿</a></li>
+              <li><a id="menu-comment">更新</a></li>
               <li><a id="menu-x-and-comment">下書き保存</a></li>
             </ul>
           </div>
