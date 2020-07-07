@@ -20,7 +20,7 @@
     @if($tasks ?? '')
       @foreach($tasks as $task)
         @if($task->status == 1)
-          <div class="card card-default">
+          <div class="card card-default mt-3">
             <div class="card-header">
               <h3 class="card-title"><a href="{{ route('tasks.show',$task->id) }}">{{$task->title}}</a></h3>
             </div>
@@ -43,7 +43,7 @@
     @endif
   </div>
 </div>
-<footer class="footer">
+<footer class="footer mt-3">
   <nav aria-label="Contacts Page Navigation">
     <ul class="pagination justify-content-center m-0">
       {{ $tasks->links() }}
