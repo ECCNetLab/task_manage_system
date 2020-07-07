@@ -8,8 +8,8 @@
     <div class="h3">{{ $tagname }} で検索中</div>
   @endisset
     @auth
-      @empty($tagname)
         <div class="h3">
+      @empty($tagname)
           Hello {{ Auth::user()->name }} !!
       @endempty
           <a class="btn btn-primary float-right" href="{{ route('tasks.create') }}">新規問題作成</a>
@@ -20,17 +20,23 @@
     @if($tasks ?? '')
       @foreach($tasks as $task)
         @if($task->status == 1)
-          <div class="card card-default">
+          <div class="card card-default mt-3">
             <div class="card-header">
               <h3 class="card-title"><a href="{{ route('tasks.show',$task->id) }}">{{$task->title}}</a></h3>
+              <ul class="nav nav-pills card-header-pills" style="width: 100%; overflow-x: scroll; flex-wrap: nowrap">
+                <li class="nav-item">
+                  <a class="disabled mr-4">Tags:</a>
+                </li>
+                @foreach($task->tags as $tag)
+                <li clsss="nav-item">
+                  <a class="btn btn-primary btn-sm mr-2" href="{{ route('tagSearch', $tag->name) }}">{{ $tag->name }}</a>
+                  </li>
+                @endforeach
+              </ul>
             </div>
             <div class="card-body">
-              <h5>{!! nl2br(e($task->body)) !!}</h5>
-                Tag @foreach($task->tags as $tag)
-                  <form action="{{ route('tagSearch',$tag->name) }}" style="display: inline" method="get">
-                    <input type="submit" class="btn btn-primary btn-sm" value="{{ $tag->name }}">
-                  </form>
-                @endforeach
+              <p>{!! nl2br(e($task->body)) !!}</p>
+
             </div>
             <!-- <div class="card-footer">
               <div class="float-right d-none d-sm-inline-block">
@@ -43,7 +49,7 @@
     @endif
   </div>
 </div>
-<footer class="footer">
+<footer class="footer mt-3">
   <nav aria-label="Contacts Page Navigation">
     <ul class="pagination justify-content-center m-0">
       {{ $tasks->links() }}
